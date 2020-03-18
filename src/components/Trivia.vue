@@ -3,9 +3,9 @@
     <div class="has-text-centered" v-if="currentView === 'loader'">Loading...</div>
     <div v-if="currentView === 'quiz'">
       <h3 class="is-size-6 has-text-centered">Round {{currentTriviaIndex + 1}}/{{triviaList.length}}</h3>
-      <h1 class="is-size-1 has-text-centered mb1">0:07</h1>
+      <h1 class="is-size-1 has-text-centered mb1">{{getHours(totalSeconds)}}:{{getSeconds(totalSeconds)}}</h1>
       <div class="trivia-main-section mb2">
-        <h2 class="is-size-3 question has-text-centered mb2">{{ triviaList.length && triviaList[currentTriviaIndex].question }}</h2>
+        <h2 class="is-size-3 question has-text-centered wrapword mb2">{{ triviaList.length && triviaList[currentTriviaIndex].question }}</h2>
         <div class="columns is-multiline is-variable is-7">
           <div class="column is-half" v-for="option in triviaList[currentTriviaIndex].options" :key="option.question">
             <button v-bind:class="['answer-item', option === selectedOption ? 'active' : '' ]" v-on:click="onSelectOption(option, currentTriviaIndex)">{{option}}</button>
@@ -45,6 +45,8 @@ export default {
       totalScore: 0,
       currentView: 'loader', // Possible views or loader, quiz, result,
       selectedOption: '',
+      countFrom: new Date(),
+      totalSeconds: 0
     }
   },
   created () {
@@ -57,6 +59,7 @@ export default {
         this.currentView = 'quiz'
 
         this.addTriviaOptions();
+        this.start()
       })
       .catch((error) => {
         console.log(error);
@@ -89,6 +92,7 @@ export default {
 
     onSelectOption(option, currentTriviaIndex) {
       this.selectedOptions[currentTriviaIndex] = option;
+      console.log('selectedOptions', this.selectedOptions[currentTriviaIndex]);
       this.selectedOption = option;
       console.log('cool');
     },
@@ -120,7 +124,26 @@ export default {
     onSubmit() {
       this.getTotalScore();
       this.currentView = 'result';
+    },
+
+    start() {
+      this.isRunning = true
+        if (!this.timer) {
+          this.timer = setInterval( () => {
+            this.totalSeconds++
+          }, 1000 )
+      }
+    },
+
+    getSeconds (totalSeconds) {
+      let result = totalSeconds % 60;
+      return String(result).length === 1 ? `0${result}` : result;
+    },
+
+    getHours(totalSeconds) {
+      return Math.floor(totalSeconds / (60 * 60));
     }
+
   }
 }
 </script>

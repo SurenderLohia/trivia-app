@@ -78,3 +78,10 @@ body,
 .hide {
   display: none;
 }
+
+.wrapword {
+  white-space: pre-wrap;                  /* CSS3 */
+    word-wrap: break-word;                  /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}

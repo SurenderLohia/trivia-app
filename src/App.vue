@@ -1,28 +1,27 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div id="app" class="App bg-gradient">
+      <div class="container expand-height">
+        <div class="section expand-height">
+          <div class="columns is-centered expand-height">
+            <div class="column is-8 flex-row is-center">
+              <Trivia />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Trivia from './components/Trivia.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Trivia
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style src="bulma/css/bulma.css"></style>
+<style src="./assets/css/main.css"></style>

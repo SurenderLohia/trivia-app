@@ -92,6 +92,13 @@ export default {
     onSelectOption(option, currentTriviaIndex) {
       this.selectedOptions[currentTriviaIndex] = option;
       this.selectedOption = option;
+
+      if (option === this.triviaList[currentTriviaIndex].correct_answer) {
+        console.log(true);
+      } else {
+        console.log(false);
+      }
+      
     },
 
     gotoNext() {

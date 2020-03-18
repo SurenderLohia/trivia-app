@@ -53,7 +53,7 @@ export default {
     const url = 'https://opentdb.com/api.php?amount=20&category=9&difficulty=easy&type=multiple';
     axios.get(url)
       .then((response) => {
-        this.triviaList = response.data.results.slice(0, 2);
+        this.triviaList = response.data.results;
         this.isLoading = false;
         this.currentTrivia = this.triviaList[this.currentTriviaIndex]
         this.currentView = 'quiz'
@@ -67,7 +67,6 @@ export default {
   },
   methods: {
     getTriviaOptions(trivaItem) {
-      console.log('come here');
       const triviaOptions = trivaItem && [trivaItem.correct_answer, ...trivaItem.incorrect_answers];
 
       function shuffle(array = []) {
@@ -92,9 +91,7 @@ export default {
 
     onSelectOption(option, currentTriviaIndex) {
       this.selectedOptions[currentTriviaIndex] = option;
-      console.log('selectedOptions', this.selectedOptions[currentTriviaIndex]);
       this.selectedOption = option;
-      console.log('cool');
     },
 
     gotoNext() {
